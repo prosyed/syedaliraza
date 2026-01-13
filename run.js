@@ -1,3 +1,6 @@
+var throbber = document.getElementById("throbber");
+var trunk = document.getElementById("trunk");
+var foot = document.getElementById("foot");
 var menu = document.getElementById("menu");
 var thorax = document.getElementById("thorax");
 var thoraxTran = 0;
@@ -10,11 +13,12 @@ var back = document.getElementById("back");
 
 async function loadWindow() {
     var preFont = new Date();
+    var index = 0;
     for (let font of document.fonts) {
         await document.fonts.load(`${font.style} ${font.weight} 1em ${font.family}`);
+        index++;
+        console.log(`${index}/${document.fonts.size} fonts loaded: ${(new Date() - preFont) / 1000}s`);
     }
-    console.log(`Font Load: ${new Date() - preFont}ms`);
-    document.body.style.display = 'block';
     Object.keys(qua).forEach(member => {
         const item = document.createElement("div");
         item.classList.add('item');
@@ -22,6 +26,9 @@ async function loadWindow() {
         item.innerHTML = member;
         menu.append(item);
     })
+    throbber.style.display = 'none';
+    trunk.style.display = 'block';
+    foot.style.display = 'block';
 }
 
 function clickItem(item) {

@@ -64,7 +64,6 @@ html {
     background-color: var(--cold);
 }
 body {
-    display: none;
     height: 100%;
     margin: 0;
     
@@ -84,7 +83,27 @@ body {
     letter-spacing: 0.3px;
 }
 
+#throbber {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 18px;
+    height: 18px;
+
+    transform: translate(-50%, -50%);
+    animation: spin 1s linear infinite;
+    
+    border-top: 4px solid var(--cola);
+    border-radius: 50%;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 #trunk {
+    display: none;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -243,6 +262,7 @@ body {
 }
 
 #foot {
+    display: none;
     position: absolute;
     top: 100%;
     width: 100%;
