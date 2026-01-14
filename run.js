@@ -13,15 +13,18 @@ var back = document.getElementById("back");
 var secret = 0;
 
 async function loadWindow() {
-    var preFont = new Date();
+    var preFont = Date.now();
     var index = 0;
-    for (const font of fonts) {
-        document.fonts.add(font);
-        font.load();
-        await font.loaded;
-        index++; 
-        console.log(`${index}/${fonts.length} fonts loaded: ${font.style} ${font.weight} 1em ${font.family} (${(new Date() - preFont) / 1000}s)`); 
-    }
+    await Promise.all(
+        fonts.map(font => {
+            document.fonts.add(font);
+            font.load();
+            return font.loaded.then(() => {
+                index++;
+                console.log(`${index}/${fonts.length} fonts loaded: ${font.family} (${(Date.now() - preFont) / 1000}s)`);
+            });
+        })
+    );
     Object.keys(contents).forEach(member => {
         const item = document.createElement("div");
         item.classList.add('item');
