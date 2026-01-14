@@ -1,4 +1,4 @@
-var contents = {
+const contents = {
     Prime: "<p>Prime is a 3-player parliamentary strategy web game.</p><a href='https://prime.syedaliraza.com'><b>Play now</b></a>",
     Code: "<p>The source code for all my projects.</p><p>Will be published soon.</p>",
     Linguistics: "<p>My contributions aimed to better the understanding of languages (the natural ones):</p><ul><li>Interactive IPA Chart with occurrences</li><li>Conjugation Atlas of Arabic</li><li>Translations from Punjabi</li></ul><p>Will be published soon.</p>",

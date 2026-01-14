@@ -1,0 +1,44 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #F5F5F5;
+    font-family: sans-serif;
+}
+
+a {
+    color: #1565C0;
+    cursor: pointer;
+}
+
+b {
+    font-weight: bold;
+}
+
+#panel {
+    width: 320px;
+    text-align: center
+}
+
+.stroke {
+    stroke: var(--colb);
+}
+
+.atrium {
+    padding: 20px 0 14px 0;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 2px
+}
+
+#cork {
+    padding: 20px;
+    background: white;
+    border: 1px solid black;
+    text-align: left;
+}

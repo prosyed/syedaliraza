@@ -1,0 +1,1 @@
+const cork = "📌 <a href='https://1drv.ms/x/c/c768510118961927/IQDgZBj6EVgBQrUlVuZoK80mAdNE6qVAGqqLUNznotdEdQo?e=liL8yJ'><b>Identanious</b></a><br/>📌 <a href='https://drive.google.com/drive/folders/127O0fLBoQ7oqtzfPc_H4HIx6xharDu2e?usp=sharing'><b>The Old</b></a>"
