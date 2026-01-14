@@ -1,40 +1,7 @@
-@font-face {
-    font-family: 'Metropolis';
-    font-style: normal;
-    font-weight: 100;
-    src: local('Metropolis'), url('fonts/Metropolis-Thin.woff') format('woff');
+@keyframes throbberSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
-@font-face {
-    font-family: 'Metropolis';
-    font-style: normal;
-    font-weight: 300;
-    src: local('Metropolis'), url('fonts/Metropolis-Light.woff') format('woff');
-}
-@font-face {
-    font-family: 'Metropolis';
-    font-style: italic;
-    font-weight: 300;
-    src: local('Metropolis'), url('fonts/Metropolis-LightItalic.woff') format('woff');
-}
-@font-face {
-    font-family: 'Metropolis';
-    font-style: normal;
-    font-weight: 600;
-    src: local('Metropolis'), url('fonts/Metropolis-SemiBold.woff') format('woff');
-}
-@font-face {
-    font-family: 'Metropolis';
-    font-style: italic;
-    font-weight: 600;
-    src: local('Metropolis'), url('fonts/Metropolis-SemiBoldItalic.woff') format('woff');
-}
-@font-face {
-    font-family: 'FontAwesome';
-    font-style: normal;
-    font-weight: normal;
-    src: local('FontAwesome'), url('fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2');
-}
-
 @keyframes footLoad {
     0% { transform: translateY(0); }
     100% { transform: translateY(-50px); }
@@ -48,6 +15,7 @@
         stroke-dashoffset: 0;
     }
 }
+
 
 :root {
     --unit: 160px;
@@ -91,15 +59,10 @@ body {
     height: 18px;
 
     transform: translate(-50%, -50%);
-    animation: spin 1s linear infinite;
+    animation: throbberSpin 1s linear infinite;
     
     border-top: 4px solid var(--cola);
     border-radius: 50%;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
 }
 
 #trunk {

@@ -15,12 +15,14 @@ var secret = 0;
 async function loadWindow() {
     var preFont = new Date();
     var index = 0;
-    for (let font of document.fonts) { 
-        await document.fonts.load(`${font.style} ${font.weight} 1em ${font.family}`); 
+    for (const font of fonts) {
+        document.fonts.add(font);
+        font.load();
+        await font.loaded;
         index++; 
-        console.log(`${index}/${document.fonts.size} fonts loaded: ${font.style} ${font.weight} 1em ${font.family} (${(new Date() - preFont) / 1000}s)`); 
+        console.log(`${index}/${fonts.length} fonts loaded: ${font.style} ${font.weight} 1em ${font.family} (${(new Date() - preFont) / 1000}s)`); 
     }
-    Object.keys(qua).forEach(member => {
+    Object.keys(contents).forEach(member => {
         const item = document.createElement("div");
         item.classList.add('item');
         item.setAttribute("onclick", "clickItem(this.innerHTML)");
@@ -33,7 +35,7 @@ async function loadWindow() {
 }
 
 function clickItem(item) {
-    valve.innerHTML = qua[item];
+    valve.innerHTML = contents[item];
     thorax.style.width = "100%";
     thoraxTran = 1;
 }
