@@ -93,4 +93,4 @@ back.addEventListener("click", clickBack);
 thorax.addEventListener("transitionend", transitionThorax);
 stamp.addEventListener("transitionend", transitionStamp);
 heart.addEventListener("transitionend", transitionHeart);
-thorax.addEventListener("click", clickSecret);
+stamp.addEventListener("click", clickSecret);
