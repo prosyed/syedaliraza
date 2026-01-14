@@ -10,14 +10,15 @@ var heart = document.getElementById("heart");
 var heartTran = 0;
 var valve = document.getElementById("valve");
 var back = document.getElementById("back");
+var secret = 0;
 
 async function loadWindow() {
     var preFont = new Date();
     var index = 0;
-    for (let font of document.fonts) {
-        await document.fonts.load(`${font.style} ${font.weight} 1em ${font.family}`);
-        index++;
-        console.log(`${index}/${document.fonts.size} fonts loaded: ${(new Date() - preFont) / 1000}s`);
+    for (let font of document.fonts) { 
+        await document.fonts.load(`${font.style} ${font.weight} 1em ${font.family}`); 
+        index++; 
+        console.log(`${index}/${document.fonts.size} fonts loaded: ${font.style} ${font.weight} 1em ${font.family} (${(new Date() - preFont) / 1000}s)`); 
     }
     Object.keys(qua).forEach(member => {
         const item = document.createElement("div");
@@ -74,8 +75,17 @@ function transitionHeart() {
     }
 }
 
+function clickSecret() {
+    secret++;
+    if (secret === 5) {
+        window.location.href = "panel";
+        secret = 0;
+    }
+}
+
 window.addEventListener("load", loadWindow);
 back.addEventListener("click", clickBack);
 thorax.addEventListener("transitionend", transitionThorax);
 stamp.addEventListener("transitionend", transitionStamp);
 heart.addEventListener("transitionend", transitionHeart);
+thorax.addEventListener("click", clickSecret);
