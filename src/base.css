@@ -1,6 +1,5 @@
 @keyframes throbberSpin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    to { transform: rotate(360deg); }
 }
 @keyframes footLoad {
     0% { transform: translateY(0); }
@@ -51,19 +50,20 @@ body {
     letter-spacing: 0.3px;
 }
 
-#throbber {
+.throb {
     position: absolute;
     top: 50%;
     left: 50%;
+    transform: translate(-50%, -50%);
+}
+.throbber {
     width: 18px;
     height: 18px;
-
-    transform: translate(-50%, -50%);
-    animation: throbberSpin 1s linear infinite;
-    
     border-top: 4px solid var(--cola);
     border-radius: 50%;
+    animation: throbberSpin 1s linear infinite;
 }
+
 
 #trunk {
     display: none;

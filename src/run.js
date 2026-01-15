@@ -1,4 +1,4 @@
-var throbber = document.getElementById("throbber");
+var throb = document.getElementsByClassName("throb")[0];
 var trunk = document.getElementById("trunk");
 var foot = document.getElementById("foot");
 var menu = document.getElementById("menu");
@@ -11,6 +11,7 @@ var heartTran = 0;
 var valve = document.getElementById("valve");
 var back = document.getElementById("back");
 var secret = 0;
+var secretTimer = null;
 
 async function loadWindow() {
     var preFont = Date.now();
@@ -32,7 +33,7 @@ async function loadWindow() {
         item.innerHTML = member;
         menu.append(item);
     })
-    throbber.style.display = 'none';
+    throb.style.display = 'none';
     trunk.style.display = 'block';
     foot.style.display = 'block';
 }
@@ -82,9 +83,18 @@ function transitionHeart() {
 
 function clickSecret() {
     secret++;
+    if (secretTimer) {
+        clearTimeout(secretTimer);
+    }
+    secretTimer = setTimeout(() => {
+        secret = 0;
+        secretTimer = null;
+    }, 1000);
     if (secret === 5) {
         window.location.href = "panel";
         secret = 0;
+        clearTimeout(secretTimer);
+        secretTimer = null;
     }
 }
 

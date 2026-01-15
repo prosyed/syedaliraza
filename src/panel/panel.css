@@ -36,9 +36,18 @@ b {
     letter-spacing: 2px
 }
 
+.throb {
+    position: static;
+    transform: none;
+}
+
+.throbber {
+    margin: auto;
+}
+
 #cork {
     padding: 20px;
     background: white;
-    border: 1px solid black;
+    border: 1px solid var(--cold);
     text-align: left;
 }
