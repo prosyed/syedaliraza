@@ -40,9 +40,9 @@
                 <line class="stroke" id="stroke-raza-dash" clip-path="url(#clip-raza-dash)" fill="none" x1="224" y1="4" x2="213.7" y2="24.4"/>
             </svg>
             <div class="chamber">
-                <div class="atrium">Corkboard</div>
-                <div class="ventricle">
-                    <div id="cork">
+                <div class="head">Corkboard</div>
+                <div class="tail">
+                    <div class="component" id="cork">
                         <div class="throb">
                             <div class="throbber"></div>
                         </div>
@@ -50,6 +50,40 @@
                     </div>
                 </div>
             </div>
+            <div class="chamber">
+                <div class="head">Directory</div>
+                <div class="tail">
+                    <div class="component" id="dir">
+                        <table id="directory">
+                            <tbody>
+                                <tr class="current">
+                                    <td colspan="3">currentpath/</td>
+                                </tr>
+                                <tr class="folder">
+                                    <td class="ico">📁</td>
+                                    <td class="value">...</td>
+                                    <td class="size"></td>
+                                </tr>
+                                <tr class="folder">
+                                    <td class="ico">📁</td>
+                                    <td class="value">a folder</td>
+                                    <td class="size"></td>
+                                </tr>
+                                <tr class="file">
+                                    <td class="ico">📄</td>
+                                    <td class="value">a file</td>
+                                    <td class="size">675 KB</td>
+                                </tr>
+                                <tr class="file opened">
+                                    <td class="ico">📄</td>
+                                    <td class="value">a file opened</td>
+                                    <td class="size">1 MB</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>           
         </div>
     </body>
     <script src="cork.js" type="text/javascript"></script>

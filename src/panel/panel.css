@@ -9,6 +9,21 @@ body {
     align-items: center;
     background: #F5F5F5;
     font-family: sans-serif;
+    
+    -moz-user-select: auto;
+    -webkit-user-select: auto;
+    -ms-user-select: auto;
+    user-select: auto;
+}
+
+::selection {
+    color: white;
+    background: var(--colc);
+}
+
+::-moz-selection {
+    color: white;
+    background: var(--colc);
 }
 
 a {
@@ -29,14 +44,14 @@ b {
     stroke: var(--colb);
 }
 
-.atrium {
+.head {
     padding: 20px 0 14px 0;
     text-transform: uppercase;
     font-size: 12px;
     letter-spacing: 2px
 }
 
-.throb {
+.tail {
     position: static;
     transform: none;
 }
@@ -45,9 +60,70 @@ b {
     margin: auto;
 }
 
-#cork {
-    padding: 20px;
+.component {
     background: white;
     border: 1px solid var(--cold);
+}
+
+#cork {
+    padding: 20px;
     text-align: left;
+}
+
+#dir {
+    padding: 18px 0
+}
+
+#directory {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#directory td {
+    text-align: left;
+}
+
+#directory tr {
+    height: 21px;
+}
+
+#directory tr:hover:not(.current, .opened) {
+    background: #F9F9F9;
+}
+
+#directory tr: {
+    background: #F5F5F5;
+}
+
+.current td {
+    font-weight: bold;
+    padding: 0 20px 10px 20px;
+}
+
+.folder {
+    cursor: pointer;
+}
+
+.file.opened {
+    color: white;
+    background: var(--colb);
+}
+
+.ico, .size {
+    width: 1px;
+    white-space: nowrap;
+}
+
+.ico {
+    padding-left: 20px
+}
+
+.value {
+    width: auto;
+    padding: 0 6px;
+}
+
+.size {
+    text-align: right !important; 
+    padding-right: 20px;
 }
