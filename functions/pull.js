@@ -14,6 +14,11 @@ exports.handler = async function (event, context) {
     
     const path = event.queryStringParameters?.path || "";
     const githubUrl = `https://api.github.com/repos/${user}/${repo}/contents/${path}`;
+    const cors = {
+        "Access-Control-Allow-Origin": "*", // allow all origins
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS"
+    }
 
     try {
         const response = await fetch(githubUrl, {
@@ -26,23 +31,26 @@ exports.handler = async function (event, context) {
         if (!response.ok) {
             return {
                 statusCode: response.status,
+                headers: cors,
                 body: JSON.stringify({
                     error: `GitHub API error: ${response.statusText}`,
-                }),
+                })
             };
         }
         const data = await response.json();
         return {
             statusCode: 200,
-            body: JSON.stringify(data),
+            headers: cors,
+            body: JSON.stringify(data)
         };
     }
     catch (error) {
         return {
             statusCode: 500,
+            headers: cors,
             body: JSON.stringify({
                 error: error.message,
-            }),
+            })
         };
     }
 };
