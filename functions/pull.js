@@ -1,6 +1,6 @@
 exports.handler = async function () {
     return {
         statusCode: 200,
-        body: "Netlify functions are working",
+        body: process.env,
     };
 };
