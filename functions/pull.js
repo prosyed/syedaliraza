@@ -12,10 +12,11 @@ exports.handler = async function (event, context) {
         };
     }
     
+    const path = event.queryStringParameters?.path || "";
     const githubUrl = `https://api.github.com/repos/${user}/${repo}/contents/${path}`;
     
     return {
         statusCode: 200,
-        body: user,
+        body: githubUrl,
     };
 };
