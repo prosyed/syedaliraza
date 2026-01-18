@@ -63,6 +63,9 @@ b {
 .component {
     background: white;
     border: 1px solid var(--cold);
+    max-height: 200px;
+    overflow: auto;
+    scrollbar-width: thin;
 }
 
 #cork {
@@ -87,7 +90,7 @@ b {
     height: 21px;
 }
 
-#directory tr:hover:not(.current, .opened) {
+#directory tr:hover:not(.current, .non) {
     background: #F9F9F9;
 }
 
@@ -102,11 +105,6 @@ b {
 
 .folder {
     cursor: pointer;
-}
-
-.file.opened {
-    color: white;
-    background: var(--colb);
 }
 
 .ico, .size {
@@ -126,4 +124,24 @@ b {
 .size {
     text-align: right !important; 
     padding-right: 20px;
+}
+
+#viewer-chamber {
+    display: none;
+}
+
+#view {
+    padding: 20px;
+    text-align: left;
+}
+
+pre:has(#viewer) {
+    margin: 0;
+}
+
+#viewer {
+    padding: 0;
+    background: none;
+    font-size: 12px;
+    overflow: visible;
 }

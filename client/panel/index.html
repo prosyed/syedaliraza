@@ -6,8 +6,13 @@
         <meta name="robots" content="noindex, nofollow, noarchive">
         <meta name="googlebot" content="noindex, nofollow">
         <title>Panel - Syed Ali Raza</title>
+        <link rel="stylesheet" href="highlight.js/github.min.css">
         <link rel="stylesheet" href="../base.css">
         <link rel="stylesheet" href="panel.css">
+        <link
+  rel="stylesheet"
+  href=""
+/>
     </head>
     <body>
         <div id="panel">
@@ -43,9 +48,7 @@
                 <div class="head">Corkboard</div>
                 <div class="tail">
                     <div class="component" id="cork">
-                        <div class="throb">
-                            <div class="throbber"></div>
-                        </div>
+                        <div class="throbber"></div>
                         <span id="corkboard"></span>
                     </div>
                 </div>
@@ -54,38 +57,24 @@
                 <div class="head">Directory</div>
                 <div class="tail">
                     <div class="component" id="dir">
-                        <table id="directory">
-                            <tbody>
-                                <tr class="current">
-                                    <td colspan="3">currentpath/</td>
-                                </tr>
-                                <tr class="folder">
-                                    <td class="ico">📁</td>
-                                    <td class="value">...</td>
-                                    <td class="size"></td>
-                                </tr>
-                                <tr class="folder">
-                                    <td class="ico">📁</td>
-                                    <td class="value">a folder</td>
-                                    <td class="size"></td>
-                                </tr>
-                                <tr class="file">
-                                    <td class="ico">📄</td>
-                                    <td class="value">a file</td>
-                                    <td class="size">675 KB</td>
-                                </tr>
-                                <tr class="file opened">
-                                    <td class="ico">📄</td>
-                                    <td class="value">a file opened</td>
-                                    <td class="size">1 MB</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="throbber"></div>
+                        <table id="directory"></table>
+                    </div>
+                </div>
+            </div> 
+            <div class="chamber" id="viewer-chamber">
+                <div class="head">Viewer</div>
+                <div class="tail">
+                    <div class="component" id="view">
+                        <div class="throbber"></div>
+                        <pre><code id="viewer"></code></pre>
                     </div>
                 </div>
             </div>           
         </div>
     </body>
+    <script src="highlight.js/highlight.min.js"></script>
+    <script src="highlight.js/mappings.js"></script>
     <script src="cork.js" type="text/javascript"></script>
     <script src="panel.js" type="text/javascript"></script>
 </html>
