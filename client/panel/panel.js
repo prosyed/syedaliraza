@@ -1,9 +1,16 @@
 var throbbers = document.getElementsByClassName("throbber");
+
+var hours = document.getElementsByClassName("hour");
+var refreshes = document.getElementsByClassName("refresh");
+var exits = document.getElementsByClassName("exit");
+
 var corkboard = document.getElementById("corkboard");
 var directory = document.getElementById("directory");
 var viewer = document.getElementById("viewer");
+
 var viewerChamber = document.getElementById("viewer-chamber");
-var viewerHidden = true;
+var viewerCurrent = document.getElementById("viewer-current");
+
 const pullUrl = "https://www.syedaliraza.com/.netlify/functions/pull?path=";
 
 async function loadPanel() {
@@ -14,9 +21,9 @@ async function loadPanel() {
 }
 
 async function pull(file, path) {
-    if (file && viewerHidden) {
+    hours[Number(file)].style.display = 'block'
+    if (file) {
         viewerChamber.style.display = "block";
-        viewerHidden = true;
     }
     const target = file ? viewer : directory;
     try {
@@ -30,7 +37,12 @@ async function pull(file, path) {
     catch (error) {
         target.innerHTML = error;    
     }
-    if (file) throbbers[2].style.display = 'none';
+    if (file) {
+        viewerCurrent.style.display = "block";
+        viewer.style.display = "block";
+        throbbers[2].style.display = 'none';
+    }
+    hours[Number(file)].style.display = 'none'
 }
 
 function fillDirectory(path, contents) {
@@ -49,6 +61,7 @@ function fillDirectory(path, contents) {
 }
 
 function fillViewer(path, contents) {
+    viewerCurrent.innerHTML = path;
     viewer.innerHTML = atob(contents.content)
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
@@ -60,3 +73,11 @@ function fillViewer(path, contents) {
 }
 
 window.addEventListener("load", loadPanel);
+refreshes[0].addEventListener("click", () => pull(false, document.querySelector(".current td").innerHTML));
+refreshes[1].addEventListener("click", () => pull(true, viewerCurrent.innerHTML));
+exits[0].addEventListener("click", () => {
+    viewerChamber.style.display = "none";
+    viewerCurrent.style.display = "none";
+    viewer.style.display = "none";
+    throbbers[2].style.display = 'block';
+});

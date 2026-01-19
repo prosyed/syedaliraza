@@ -45,7 +45,11 @@
                 <line class="stroke" id="stroke-raza-dash" clip-path="url(#clip-raza-dash)" fill="none" x1="224" y1="4" x2="213.7" y2="24.4"/>
             </svg>
             <div class="chamber">
-                <div class="head">Corkboard</div>
+                <div class="head">
+                    <div class="prebar"></div>
+                    <div class="bar">Corkboard</div>
+                    <div class="postbar"></div>
+                </div>
                 <div class="tail">
                     <div class="component" id="cork">
                         <div class="throbber"></div>
@@ -54,23 +58,41 @@
                 </div>
             </div>
             <div class="chamber">
-                <div class="head">Directory</div>
+                <div class="head">
+                    <div class="prebar">
+                        <span class="hour">⏳</span>
+                    </div>
+                    <div class="bar">Directory</div>
+                    <div class="postbar">
+                        <span class="refresh">🔃</span>
+                    </div>
+                </div>                
                 <div class="tail">
                     <div class="component" id="dir">
                         <div class="throbber"></div>
                         <table id="directory"></table>
                     </div>
                 </div>
-            </div> 
+            </div>
             <div class="chamber" id="viewer-chamber">
-                <div class="head">Viewer</div>
+                <div class="head">
+                    <div class="prebar">
+                        <span class="hour">⏳</span>
+                    </div>
+                    <div class="bar">Viewer</div>
+                    <div class="postbar">
+                        <span class="exit">❌</span>
+                        <span class="refresh">🔃</span>
+                    </div>
+                </div>
                 <div class="tail">
                     <div class="component" id="view">
                         <div class="throbber"></div>
+                        <span id="viewer-current"></span>
                         <pre><code id="viewer"></code></pre>
                     </div>
                 </div>
-            </div>           
+            </div>        
         </div>
     </body>
     <script src="highlight.js/highlight.min.js"></script>
