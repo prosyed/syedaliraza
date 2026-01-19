@@ -1,4 +1,9 @@
 exports.handler = async function (event, context) {
+    const cors = {
+        "Access-Control-Allow-Origin": "*", // allow all origins
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS"
+    }
     const user = process.env.GITHUB_USER;
     const repo = process.env.GITHUB_REPO;
     const token = process.env.GITHUB_TOKEN;
@@ -6,6 +11,7 @@ exports.handler = async function (event, context) {
     if (!user || !repo) {
         return {
             statusCode: 500,
+            headers: cors,
             body: JSON.stringify({
                 error: "Missing GITHUB_USER or GITHUB_REPO environment variables.",
             }),
@@ -14,11 +20,6 @@ exports.handler = async function (event, context) {
     
     const path = event.queryStringParameters?.path || "";
     const githubUrl = `https://api.github.com/repos/${user}/${repo}/contents/${path}`;
-    const cors = {
-        "Access-Control-Allow-Origin": "*", // allow all origins
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS"
-    }
 
     try {
         const response = await fetch(githubUrl, {
