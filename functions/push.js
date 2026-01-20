@@ -16,7 +16,7 @@ exports.handler = async function (event, context) {
     const user = process.env.GITHUB_USER;
     const repo = process.env.GITHUB_REPO;
     const token = process.env.GITHUB_TOKEN;
-    
+    const pass = process.env.CODEX_ULTIMUS;
     
     if (!user || !repo || !token) {
         return {
@@ -39,13 +39,22 @@ exports.handler = async function (event, context) {
         };
     }
     
-    let { path, content, sha, message } = body;
+    let { path, content, sha, message, password } = body;
     message = "Update from within" + (message ? ": " + message : "");
+    
     if (!path || content === undefined) {
         return {
             statusCode: 400,
             headers: cors,
             body: "POST body must include path and content",
+        };
+    }
+    
+    if (password !== pass) {
+        return {
+            statusCode: 400,
+            headers: cors,
+            body: "Password missing or incorrect",
         };
     }
     
