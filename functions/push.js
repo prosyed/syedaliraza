@@ -1,14 +1,8 @@
 export async function handler(event) {
-    const cors = {
-        "Access-Control-Allow-Origin": "*", // allow all origins
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS"
-    }
-    
     if (event.httpMethod !== "POST") {
         return {
             statusCode: 405,
-            headers: cors,
+            headers: {"Access-Control-Allow-Origin": "*"},
             body: "Method Not Allowed"
         };
     }
@@ -21,7 +15,7 @@ export async function handler(event) {
     if (!user || !repo || !token) {
         return {
             statusCode: 500,
-            headers: cors,
+            headers: {"Access-Control-Allow-Origin": "*"},
             body: JSON.stringify({
                 error: "Missing GITHUB_USER, GITHUB_REPO or GITHUB_TOKEN environment variables.",
             }),
@@ -34,7 +28,7 @@ export async function handler(event) {
     } catch {
         return { 
             statusCode: 400, 
-            headers: cors,
+            headers: {"Access-Control-Allow-Origin": "*"},
             body: "Invalid JSON body" 
         };
     }
@@ -45,7 +39,7 @@ export async function handler(event) {
     if (!path || content === undefined) {
         return {
             statusCode: 400,
-            headers: cors,
+            headers: {"Access-Control-Allow-Origin": "*"},
             body: "POST body must include path and content",
         };
     }
@@ -53,7 +47,7 @@ export async function handler(event) {
     if (password !== pass) {
         return {
             statusCode: 400,
-            headers: cors,
+            headers: {"Access-Control-Allow-Origin": "*"},
             body: "Password missing or incorrect",
         };
     }
@@ -78,7 +72,7 @@ export async function handler(event) {
     if (!response.ok) {
         return {
             statusCode: response.status,
-            headers: cors,
+            headers: {"Access-Control-Allow-Origin": "*"},
             body: JSON.stringify(data),
         };
     }

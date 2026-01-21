@@ -1,9 +1,4 @@
 export async function handler(event) {
-    const cors = {
-        "Access-Control-Allow-Origin": "*", // allow all origins
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS"
-    }
     const user = process.env.GITHUB_USER;
     const repo = process.env.GITHUB_REPO;
     const token = process.env.GITHUB_TOKEN;
@@ -11,7 +6,7 @@ export async function handler(event) {
     if (!user || !repo) {
         return {
             statusCode: 500,
-            headers: cors,
+            headers: {"Access-Control-Allow-Origin": "*"},
             body: JSON.stringify({
                 error: "Missing GITHUB_USER or GITHUB_REPO environment variables.",
             }),
@@ -32,7 +27,7 @@ export async function handler(event) {
         if (!response.ok) {
             return {
                 statusCode: response.status,
-                headers: cors,
+                headers: {"Access-Control-Allow-Origin": "*"},
                 body: JSON.stringify({
                     error: `GitHub API error: ${response.statusText}`,
                 })
@@ -41,14 +36,14 @@ export async function handler(event) {
         const data = await response.json();
         return {
             statusCode: 200,
-            headers: cors,
+            headers: {"Access-Control-Allow-Origin": "*"},
             body: JSON.stringify(data)
         };
     }
     catch (error) {
         return {
             statusCode: 500,
-            headers: cors,
+            headers: {"Access-Control-Allow-Origin": "*"},
             body: JSON.stringify({
                 error: error.message,
             })
