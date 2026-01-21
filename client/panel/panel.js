@@ -11,7 +11,7 @@ var viewer = document.getElementById("viewer");
 var viewerChamber = document.getElementById("viewer-chamber");
 var viewerCurrent = document.getElementById("viewer-current");
 
-const pullUrl = "https://www.syedaliraza.com/.netlify/functions/githubPull?path=";
+const pullUrl = "/.netlify/functions/githubPull?path=";
 
 async function loadPanel() {
     corkboard.innerHTML = cork;
