@@ -16,9 +16,7 @@ export async function handler(event) {
         return {
             statusCode: 500,
             headers: {"Access-Control-Allow-Origin": "*"},
-            body: JSON.stringify({
-                error: "Missing GITHUB_USER, GITHUB_REPO or GITHUB_TOKEN environment variables.",
-            }),
+            body: "Missing GITHUB_USER, GITHUB_REPO or GITHUB_TOKEN environment variables."
         };
     }
     
@@ -40,7 +38,7 @@ export async function handler(event) {
         return {
             statusCode: 400,
             headers: {"Access-Control-Allow-Origin": "*"},
-            body: "POST body must include path and content",
+            body: "POST body must include path and content"
         };
     }
     

@@ -7,9 +7,7 @@ export async function handler(event) {
         return {
             statusCode: 500,
             headers: {"Access-Control-Allow-Origin": "*"},
-            body: JSON.stringify({
-                error: "Missing GITHUB_USER or GITHUB_REPO environment variables.",
-            }),
+            body: "Missing GITHUB_USER or GITHUB_REPO environment variables"
         };
     }
     
@@ -28,9 +26,7 @@ export async function handler(event) {
             return {
                 statusCode: response.status,
                 headers: {"Access-Control-Allow-Origin": "*"},
-                body: JSON.stringify({
-                    error: `GitHub API error: ${response.statusText}`,
-                })
+                body: `GitHub API error: ${response.statusText}`
             };
         }
         const data = await response.json();
@@ -44,9 +40,7 @@ export async function handler(event) {
         return {
             statusCode: 500,
             headers: {"Access-Control-Allow-Origin": "*"},
-            body: JSON.stringify({
-                error: error.message,
-            })
+            body: error.message
         };
     }
 };
