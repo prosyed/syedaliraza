@@ -1,7 +1,7 @@
 import dispatch from './dispatch.js';
 import { uuidv4, now } from './utils.js';
 
-export default function initAgent(key, funct) {
+export default async function initAgent(key, funct) {
     let agentId = localStorage.getItem(key);
     if (!agentId) {
         agentId = uuidv4();
@@ -9,7 +9,7 @@ export default function initAgent(key, funct) {
     }
     
     const ua = navigator.userAgent;
-    const isMobile = /Mobi|Android/i.test(ua);
+    const isMobile = /Mobile|Android|iPhone/i.test(ua);
     let os = "Unknown OS";
     if (/Windows NT/i.test(ua)) os = "Windows";
     else if (/Mac OS X/i.test(ua)) os = "macOS";
@@ -22,6 +22,8 @@ export default function initAgent(key, funct) {
     else if (/Firefox/i.test(ua)) browser = "Firefox";
     else if (/Edg/i.test(ua)) browser = "Edge";
     
+    const user_agent_data = await navigator.userAgentData.getHighEntropyValues(["architecture", "bitness", "formFactors", "fullVersionList", "model", "platformVersion", "uaFullVersion", "wow64"]);
+    
     const payload = {
         agent_id: agentId,
         timestamp: now(),
@@ -29,6 +31,7 @@ export default function initAgent(key, funct) {
         device_type: isMobile ? "Mobile" : "Desktop",
         os,
         browser,
+        user_agent_data: JSON.stringify(user_agent_data),
         language: navigator.language,
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         screen_width: window.screen.width,
@@ -36,6 +39,8 @@ export default function initAgent(key, funct) {
         device_memory: navigator.deviceMemory || null,
         cpu_cores: navigator.hardwareConcurrency || null
     };
+    
+    console.log(payload)
     
     dispatch(funct, payload);
 }

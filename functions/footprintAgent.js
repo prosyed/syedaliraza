@@ -41,7 +41,7 @@ export async function handler(event) {
         };
     };
     
-    const fields = ["user_agent", "device_type", "os", "browser", "language","timezone", "screen_width", "screen_height", "device_memory", "cpu_cores"];
+    const fields = ["user_agent", "device_type", "os", "browser", "user_agent_data", "language","timezone", "screen_width", "screen_height", "device_memory", "cpu_cores"];
     
     let values = Object.fromEntries(fields.map(field => [field, typeof body[field] === 'string' ? quote(body[field]) : body[field]]));
     values = Object.fromEntries(Object.entries(values).filter(([, value]) => value !== undefined));
