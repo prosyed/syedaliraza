@@ -1,6 +1,6 @@
 import initAgent from './agent.js';
 
-const functionBase = '.netlify/functions/';
+const functionBase = '/.netlify/functions/';
 
 const agentFunction = functionBase + 'footprintAgent';
 
