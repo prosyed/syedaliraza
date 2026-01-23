@@ -33,7 +33,7 @@ export async function handler(event) {
         };
     }
         
-    const { session_id, agent_id, timestamp, url, referrer, init = true } = body;
+    let { session_id, agent_id, timestamp, url, referrer, init = true } = body;
 
     if (!session_id || !agent_id || !timestamp) {
         return {
@@ -43,6 +43,8 @@ export async function handler(event) {
         };
     };
     
+    timestamp = new Date(timestamp).toISOString();
+
     let query;
     if (init){
         let values = {

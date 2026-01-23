@@ -1,32 +1,30 @@
 export default async function initAgent(agentKey, agentFunction) {
-    const now = new Date();
-    
     let agentId = localStorage.getItem(agentKey);
     if (!agentId) {
         agentId = crypto.randomUUID();
         localStorage.setItem(agentKey, agentId);
     }
     
-    const ua = navigator.userAgent;
-    const isMobile = /Mobile|Android|iPhone/i.test(ua);
+    const userAgent = navigator.userAgent;
+    const isMobile = /Mobile|Android|iPhone/i.test(userAgent);
     let os = "Unknown OS";
-    if (/Windows NT/i.test(ua)) os = "Windows";
-    else if (/Mac OS X/i.test(ua)) os = "macOS";
-    else if (/Android/i.test(ua)) os = "Android";
-    else if (/iPhone|iPad/i.test(ua)) os = "iOS";
-    else if (/Linux/i.test(ua)) os = "Linux";
+    if (/Windows NT/i.test(userAgent)) os = "Windows";
+    else if (/Mac OS X/i.test(userAgent)) os = "macOS";
+    else if (/Android/i.test(userAgent)) os = "Android";
+    else if (/iPhone|iPad/i.test(userAgent)) os = "iOS";
+    else if (/Linux/i.test(userAgent)) os = "Linux";
     let browser = "Unknown Browser";
-    if (/Chrome/i.test(ua) && !/Edg/i.test(ua)) browser = "Chrome";
-    else if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) browser = "Safari";
-    else if (/Firefox/i.test(ua)) browser = "Firefox";
-    else if (/Edg/i.test(ua)) browser = "Edge";
+    if (/Chrome/i.test(userAgent) && !/Edg/i.test(userAgent)) browser = "Chrome";
+    else if (/Safari/i.test(userAgent) && !/Chrome/i.test(userAgent)) browser = "Safari";
+    else if (/Firefox/i.test(userAgent)) browser = "Firefox";
+    else if (/Edg/i.test(userAgent)) browser = "Edge";
     
     const userAgentData = await navigator.userAgentData.getHighEntropyValues(["architecture", "bitness", "formFactors", "fullVersionList", "model", "platformVersion", "uaFullVersion", "wow64"]);
     
     const payload = {
         agent_id: agentId,
-        timestamp: now.toISOString(),
-        user_agent: ua,
+        timestamp: Date.now(),
+        user_agent: userAgent,
         device_type: isMobile ? "Mobile" : "Desktop",
         os,
         browser,

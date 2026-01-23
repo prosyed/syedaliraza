@@ -31,7 +31,7 @@ export async function handler(event) {
         };
     }
         
-    const { agent_id, timestamp } = body;
+    let { agent_id, timestamp } = body;
 
     if (!agent_id || !timestamp) {
         return {
@@ -40,6 +40,8 @@ export async function handler(event) {
             body: "POST body must have agent_id and timestamp"
         };
     };
+    
+    timestamp = new Date(timestamp).toISOString()
     
     const fields = ["user_agent", "device_type", "os", "browser", "user_agent_data", "language","timezone", "screen_width", "screen_height", "device_memory", "cpu_cores"];
     
