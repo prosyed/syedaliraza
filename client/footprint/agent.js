@@ -40,8 +40,6 @@ export default async function initAgent(key, funct) {
         cpu_cores: navigator.hardwareConcurrency || null
     };
     
-    console.log(payload)
-    
     dispatch(funct, payload);
 }
 

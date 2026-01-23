@@ -1,6 +1,8 @@
 import { neon } from '@neondatabase/serverless';
 
-const quote = (value) => { return `'${value.replace(/'/g, "''")}'` }
+const quote = (value) => { 
+    return `'${value.replace(/'/g, "''")}'` 
+}
 
 export async function handler(event) {
     if (event.httpMethod !== "POST") {
@@ -31,27 +33,30 @@ export async function handler(event) {
         };
     }
         
-    const { agent_id, timestamp } = body;
+    const { session_id, agent_id, timestamp, url, referrer, init = true } = body;
 
-    if (!agent_id || !timestamp) {
+    if (!session_id || !agent_id || !timestamp) {
         return {
             statusCode: 400,
             headers: {"Access-Control-Allow-Origin": "*"},
-            body: "POST body must have agent_id and timestamp"
+            body: "POST body must have session_id, agent_id and timestamp"
         };
     };
     
-    const fields = ["user_agent", "device_type", "os", "browser", "user_agent_data", "language","timezone", "screen_width", "screen_height", "device_memory", "cpu_cores"];
-    
-    let values = Object.fromEntries(fields.map(field => [field, typeof body[field] === 'string' ? quote(body[field]) : body[field]]));
-    values = Object.fromEntries(Object.entries(values).filter(([, value]) => value !== undefined));
-    values = { ...{
-        id: quote(agent_id),
-        first_seen: quote(timestamp),
-        last_seen: quote(timestamp)
-    }, ...values };
-    
-    const query = `INSERT into agents (${Object.keys(values).join(", ")}) VALUES (${Object.values(values).join(", ")}) ON CONFLICT (id) DO UPDATE SET last_seen = EXCLUDED.last_seen`;
+    let query;
+    if (init){
+        let values = {
+            id: quote(session_id),
+            agent_id: quote(agent_id),
+            started_at: quote(timestamp),
+                ...(url && { entry_url: quote(url) }),
+                ...(referrer && { referrer: quote(referrer) })
+        }
+        values = Object.fromEntries(Object.entries(values).filter(([, value]) => value !== undefined));
+        query = `INSERT into sessions (${Object.keys(values).join(", ")}) VALUES (${Object.values(values).join(", ")}) ON CONFLICT DO NOTHING`;
+    }
+    else query = `UPDATE sessions SET ended_at = ${quote(timestamp)}${url ? `, exit_url = ${quote(url)}` : ""} WHERE id = ${quote(session_id)}`
+        
     const sql = neon(database);
     try {
         await sql.query(query);
