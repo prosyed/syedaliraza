@@ -1,11 +1,10 @@
-import dispatch from './dispatch.js';
-import { uuidv4, now } from './utils.js';
-
-export default async function initAgent(key, funct) {
-    let agentId = localStorage.getItem(key);
+export default async function initAgent(agentKey, agentFunction) {
+    const now = new Date();
+    
+    let agentId = localStorage.getItem(agentKey);
     if (!agentId) {
-        agentId = uuidv4();
-        localStorage.setItem(key, agentId);
+        agentId = crypto.randomUUID();
+        localStorage.setItem(agentKey, agentId);
     }
     
     const ua = navigator.userAgent;
@@ -22,16 +21,16 @@ export default async function initAgent(key, funct) {
     else if (/Firefox/i.test(ua)) browser = "Firefox";
     else if (/Edg/i.test(ua)) browser = "Edge";
     
-    const user_agent_data = await navigator.userAgentData.getHighEntropyValues(["architecture", "bitness", "formFactors", "fullVersionList", "model", "platformVersion", "uaFullVersion", "wow64"]);
+    const userAgentData = await navigator.userAgentData.getHighEntropyValues(["architecture", "bitness", "formFactors", "fullVersionList", "model", "platformVersion", "uaFullVersion", "wow64"]);
     
     const payload = {
         agent_id: agentId,
-        timestamp: now(),
+        timestamp: now.toISOString(),
         user_agent: ua,
         device_type: isMobile ? "Mobile" : "Desktop",
         os,
         browser,
-        user_agent_data: JSON.stringify(user_agent_data),
+        user_agent_data: JSON.stringify(userAgentData),
         language: navigator.language,
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         screen_width: window.screen.width,
@@ -40,7 +39,6 @@ export default async function initAgent(key, funct) {
         cpu_cores: navigator.hardwareConcurrency || null
     };
     
-    dispatch(funct, payload);
+    navigator.sendBeacon(agentFunction, JSON.stringify(payload));
+    return agentId;
 }
-
-//["user_agent", "device_type", "os", "browser", "language", "timezone", "screen_width", "screen_height", "device_memory", "cpu_cores"]
