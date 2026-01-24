@@ -3,7 +3,6 @@ export default async function initSession(agentId, sessionKey, sessionFunction) 
     let payload = {
         session_id: sessionId,
         agent_id: agentId,
-        timestamp: Date.now(),
         url: location.href,
         referrer: document.referrer
     }
@@ -11,12 +10,16 @@ export default async function initSession(agentId, sessionKey, sessionFunction) 
         sessionId = crypto.randomUUID();
         sessionStorage.setItem(sessionKey, sessionId);
         payload.session_id = sessionId;
+        payload.timestamp = Date.now();
         navigator.sendBeacon(sessionFunction, JSON.stringify(payload));
     }
-    window.addEventListener("pagehide", () => {
-        sessionStorage.removeItem(sessionKey);
-        payload.init = false;
-        navigator.sendBeacon(sessionFunction, JSON.stringify(payload));
+    window.addEventListener("pagehide", (event) => {
+        if (!event.persisted) {
+            sessionStorage.removeItem(sessionKey);
+            payload.timestamp = Date.now();
+            payload.init = false;
+            navigator.sendBeacon(sessionFunction, JSON.stringify(payload));
+        }
     });
     return sessionId;
 }
