@@ -14,12 +14,10 @@ export default async function initSession(agentId, sessionKey, sessionFunction) 
         navigator.sendBeacon(sessionFunction, JSON.stringify(payload));
     }
     window.addEventListener("pagehide", (event) => {
-        if (!event.persisted) {
-            sessionStorage.removeItem(sessionKey);
-            payload.timestamp = Date.now();
-            payload.init = false;
-            navigator.sendBeacon(sessionFunction, JSON.stringify(payload));
-        }
+        sessionStorage.removeItem(sessionKey);
+        payload.timestamp = Date.now();
+        payload.init = false;
+        navigator.sendBeacon(sessionFunction, JSON.stringify(payload));
     });
     return sessionId;
 }
