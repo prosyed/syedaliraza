@@ -1,27 +1,22 @@
-export default async function initSession(agentId, sessionKey, sessionTimestampKey, sessionTimeout, sessionFunction) {
+export default async function initSession(agentId, sessionKey, sessionFunction) {
     let sessionId = sessionStorage.getItem(sessionKey);
-    let lastTimestamp = parseInt(sessionStorage.getItem(sessionTimestampKey) || "0", 10);
-
-    if (!sessionId || Date.now() - lastTimestamp > sessionTimeout) {
+    let payload = {
+        session_id: sessionId,
+        agent_id: agentId,
+        timestamp: Date.now(),
+        url: location.href,
+        referrer: document.referrer
+    }
+    if (!sessionId) {
         sessionId = crypto.randomUUID();
         sessionStorage.setItem(sessionKey, sessionId);
-        sessionStorage.setItem(sessionTimestampKey, Date.now());
-        navigator.sendBeacon(sessionFunction, JSON.stringify({
-            session_id: sessionId,
-            agent_id: agentId,
-            timestamp: Date.now(),
-            url: location.href,
-            referrer: document.referrer
-        }));
+        payload.session_id = sessionId;
+        navigator.sendBeacon(sessionFunction, JSON.stringify(payload));
     }
     window.addEventListener("pagehide", () => {
-        navigator.sendBeacon(sessionFunction, JSON.stringify({
-            session_id: sessionId,
-            agent_id: agentId,
-            timestamp: Date.now(),
-            url: location.href,
-            init: false
-        }));
+        sessionStorage.removeItem(sessionKey);
+        payload.init = false;
+        navigator.sendBeacon(sessionFunction, JSON.stringify(payload));
     });
     return sessionId;
 }
