@@ -4,7 +4,12 @@ const quote = (value) => {
     return `'${value.replace(/'/g, "''")}'` 
 }
 
-export async function handler(event) {
+export async function handler(event) {    
+    console.log(JSON.stringify(event));
+    console.log(JSON.stringify(event.headers['x-forwarded-for']));
+    console.log(JSON.stringify(event.socket));
+    console.log(JSON.stringify(event.ip));
+    
     if (event.httpMethod !== "POST") {
         return {
             statusCode: 405,
