@@ -5,11 +5,6 @@ const quote = (value) => {
 }
 
 export async function handler(event) {    
-    console.log(JSON.stringify(event));
-    console.log(JSON.stringify(event.headers['x-forwarded-for']));
-    console.log(JSON.stringify(event.socket));
-    console.log(JSON.stringify(event.ip));
-    
     if (event.httpMethod !== "POST") {
         return {
             statusCode: 405,
@@ -49,7 +44,8 @@ export async function handler(event) {
     };
     
     timestamp = new Date(timestamp).toISOString();
-
+    
+    const xf = event.headers['x-forwarded-for'];
     let query;
     if (init){
         let values = {
@@ -57,7 +53,8 @@ export async function handler(event) {
             agent_id: quote(agent_id),
             started_at: quote(timestamp),
                 ...(url && { entry_url: quote(url) }),
-                ...(referrer && { referrer: quote(referrer) })
+                ...(referrer && { referrer: quote(referrer) }),
+                ...(xf && { ip: quote(JSON.stringify(xf)) })
         }
         values = Object.fromEntries(Object.entries(values).filter(([, value]) => value !== undefined));
         query = `INSERT into sessions (${Object.keys(values).join(", ")}) VALUES (${Object.values(values).join(", ")}) ON CONFLICT DO NOTHING`;
