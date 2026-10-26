@@ -48,6 +48,17 @@ body {
     font-weight: 100;
     letter-spacing: 0.3px;
 }
+h1 {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
 
 .throb {
     position: absolute;
@@ -294,5 +305,4 @@ body {
     .item {
         padding: 6px 0 6px 14px;
     }
-    #val
 }
